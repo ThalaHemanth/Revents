@@ -7,7 +7,7 @@ class EventListItem extends Component {
   state = {};
 
   render() {
-    const { event } = this.props;
+    const { event, onEventOpen, deleteEvents } = this.props;
     return (
       <Segment.Group>
         <Segment>
@@ -38,7 +38,14 @@ class EventListItem extends Component {
         </Segment>
         <Segment clearing>
           <span>Description</span>
-          <Button as="a" color="teal" floated="right" content="View" />
+          <Button
+            onClick={deleteEvents(event.id)}
+            as="a"
+            color="red"
+            floated="right"
+            content="Delete"
+          />
+          <Button onClick={onEventOpen(event)} as="a" color="teal" floated="right" content="View" />
         </Segment>
       </Segment.Group>
     );

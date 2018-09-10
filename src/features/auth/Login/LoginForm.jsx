@@ -1,12 +1,14 @@
 import React from 'react';
-import { Form, Segment, Button } from 'semantic-ui-react';
+import { Form, Segment, Button, Label, Divider } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import TextInput from '../../../app/common/form/TextInput';
-import { loginUser } from '../authActions';
+import { loginUser, socialLogin } from '../authActions';
+import SocialLogin from '../SocialLogin/SocialLogin';
 
 const actions = {
   loginUser,
+  socialLogin,
 };
 
 const LoginForm = props => (
@@ -14,9 +16,16 @@ const LoginForm = props => (
     <Segment>
       <Field name="email" component={TextInput} type="text" placeholder="Email Address" />
       <Field name="password" component={TextInput} type="password" placeholder="password" />
+      {props.error && (
+        <Label basic color="red">
+          {props.error}
+        </Label>
+      )}
       <Button fluid size="large" color="teal">
         Login
       </Button>
+      <Divider horizontal>OR</Divider>
+      <SocialLogin socialLogin={props.socialLogin} />
     </Segment>
   </Form>
 );
@@ -24,4 +33,4 @@ const LoginForm = props => (
 export default connect(
   null,
   actions
-)(reduxForm({ form: 'loginform' })(LoginForm));
+)(reduxForm({ form: 'loginForm' })(LoginForm));
